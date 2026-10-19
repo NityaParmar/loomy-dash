@@ -1,0 +1,285 @@
+/* ==========================================================================
+   LOOMY 16-BIT RPG VISUAL LAYER - FALLBACK & PIXEL STYLES
+   Strict Palette:
+     ink:       #14122b
+     night:     #1d1a45
+     panel:     #2a2562
+     edge:      #0b0a1d
+     parchment: #f4e8c1
+     gold:      #ffcf40
+     grass:     #59c26b
+     blood:     #e8505b
+     sky:       #4cb4ff
+     plum:      #b06cff
+   Fonts: 'Press Start 2P' (headings) | 'Silkscreen' (body)
+   ========================================================================== */
+
+:root {
+  --ink: #14122b;
+  --night: #1d1a45;
+  --panel: #2a2562;
+  --edge: #0b0a1d;
+  --parchment: #f4e8c1;
+  --gold: #ffcf40;
+  --grass: #59c26b;
+  --blood: #e8505b;
+  --sky: #4cb4ff;
+  --plum: #b06cff;
+  --font-heading: 'Press Start 2P', monospace;
+  --font-body: 'Silkscreen', monospace;
+}
+
+/* Base typography */
+.font-pixel-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+.font-pixel-body {
+  font-family: var(--font-body);
+}
+
+/* Pixel Canvas crisp rendering */
+canvas.pixel-canvas,
+.pixel-canvas canvas {
+  image-rendering: pixelated !important;
+  image-rendering: -moz-crisp-edges !important;
+  image-rendering: crisp-edges !important;
+}
+
+/* 4px stepped borders & box shadows (Zero border radius) */
+.pixel-border {
+  border: 4px solid var(--edge);
+  box-shadow: 4px 4px 0 var(--edge);
+  border-radius: 0 !important;
+}
+
+.pixel-border-gold {
+  border: 4px solid var(--gold);
+  box-shadow: 4px 4px 0 var(--edge);
+  border-radius: 0 !important;
+}
+
+.pixel-panel {
+  background-color: var(--panel);
+  border: 4px solid var(--edge);
+  box-shadow: 4px 4px 0 var(--edge), inset 4px 4px 0 rgba(255, 207, 64, 0.1), inset -4px -4px 0 var(--ink);
+  border-radius: 0 !important;
+  color: var(--parchment);
+}
+
+.pixel-panel-night {
+  background-color: var(--night);
+  border: 4px solid var(--edge);
+  box-shadow: 4px 4px 0 var(--edge), inset -4px -4px 0 var(--ink);
+  border-radius: 0 !important;
+}
+
+/* Chunky buttons that press down 4px on click */
+.pixel-btn {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-size: 11px;
+  line-height: 1.2;
+  padding: 12px 20px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 0 !important;
+  border: 4px solid var(--edge);
+  box-shadow: 4px 4px 0 var(--edge);
+  transition: transform 60ms steps(2), box-shadow 60ms steps(2), filter 60ms steps(2);
+  outline: none;
+}
+
+.pixel-btn:focus-visible {
+  outline: 4px dashed var(--gold);
+  outline-offset: 4px;
+}
+
+.pixel-btn:active {
+  transform: translate(4px, 4px) !important;
+  box-shadow: 0 0 0 var(--edge) !important;
+}
+
+/* Gold Primary Button */
+.pixel-btn-gold {
+  background-color: var(--gold);
+  color: var(--edge);
+  font-weight: bold;
+}
+
+.pixel-btn-gold:hover {
+  background-color: #ffe073;
+}
+
+/* Ghost Button */
+.pixel-btn-ghost {
+  background-color: var(--panel);
+  color: var(--parchment);
+}
+
+.pixel-btn-ghost:hover {
+  background-color: #36307a;
+  color: var(--gold);
+}
+
+/* Plum / Accent Button */
+.pixel-btn-plum {
+  background-color: var(--plum);
+  color: var(--ink);
+  font-weight: bold;
+}
+
+.pixel-btn-plum:hover {
+  background-color: #c78dff;
+}
+
+/* Pixel Speech Bubble */
+.pixel-speech-bubble {
+  position: relative;
+  background-color: var(--parchment);
+  color: var(--edge);
+  border: 4px solid var(--edge);
+  box-shadow: 4px 4px 0 var(--edge);
+  border-radius: 0 !important;
+  padding: 12px 16px;
+}
+
+.pixel-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 28px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid var(--parchment);
+}
+
+.pixel-speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 26px;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 14px solid var(--edge);
+}
+
+/* Pixel Badges */
+.pixel-badge {
+  font-family: var(--font-heading);
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border: 2px solid var(--edge);
+  box-shadow: 2px 2px 0 var(--edge);
+  border-radius: 0;
+  display: inline-block;
+}
+
+/* CSS-Only Pixel Fallback Screen */
+.pixel-fallback-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 60%, var(--night) 0%, var(--ink) 100%);
+}
+
+.pixel-fallback-stars {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, var(--gold), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 90px 40px, var(--parchment), rgba(0,0,0,0)),
+    radial-gradient(3px 3px at 150px 120px, var(--sky), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 220px 80px, var(--gold), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 300px 180px, var(--parchment), rgba(0,0,0,0)),
+    radial-gradient(3px 3px at 380px 70px, var(--gold), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 470px 140px, var(--parchment), rgba(0,0,0,0)),
+    radial-gradient(3px 3px at 580px 220px, var(--sky), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 670px 60px, var(--gold), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 780px 160px, var(--parchment), rgba(0,0,0,0)),
+    radial-gradient(3px 3px at 890px 90px, var(--sky), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 980px 210px, var(--gold), rgba(0,0,0,0)),
+    radial-gradient(3px 3px at 1100px 80px, var(--parchment), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 1220px 150px, var(--gold), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 1340px 110px, var(--sky), rgba(0,0,0,0)),
+    radial-gradient(3px 3px at 1450px 230px, var(--parchment), rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 800px 400px;
+  opacity: 0.9;
+}
+
+/* CSS Fallback Island Silhouette */
+.pixel-fallback-island {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 120px;
+  background: var(--panel);
+  border: 4px solid var(--edge);
+  box-shadow: 
+    0 -12px 0 0 var(--grass),
+    0 -8px 0 0 var(--edge),
+    8px 8px 0 0 var(--ink),
+    -8px 8px 0 0 var(--ink);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 20%, 80% 80%, 55% 100%, 45% 100%, 20% 80%, 0% 20%);
+}
+
+.pixel-fallback-castle {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 70px;
+  background: var(--night);
+  border: 4px solid var(--edge);
+  box-shadow: 
+    -20px 10px 0 -4px var(--night),
+    20px 10px 0 -4px var(--night),
+    0 -12px 0 0 var(--edge);
+}
+
+.pixel-fallback-gate {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 32px;
+  background: var(--gold);
+  border: 4px solid var(--edge);
+  border-bottom: none;
+  box-shadow: 0 0 16px rgba(255, 207, 64, 0.8);
+}
+
+/* Custom retro scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background: var(--ink);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--panel);
+  border: 2px solid var(--edge);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
